@@ -11,7 +11,7 @@ public class Main {
             public void run() {
                 Window MainWindow = new Window();
                 MainWindow.setVisible(false);
-                MainWindow.setBackground(Color.green);
+                MainWindow.setBackground(Color.blue);
             }
         });
     }
