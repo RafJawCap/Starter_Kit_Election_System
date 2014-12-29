@@ -4,15 +4,21 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.text.ParseException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 public class LoginPane extends JPanel {
 	
@@ -49,6 +55,11 @@ public class LoginPane extends JPanel {
     // JPanels
     private static JPanel paneZipCode = new JPanel();
     private static JPanel panePeselField = new JPanel();
+    
+    // Selected ones
+    
+    private static String selectedPostalCode;
+    private static String userPesel;
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
@@ -114,26 +125,75 @@ public class LoginPane extends JPanel {
 		
 		comboboxPostalCode = new JComboBox<String>();
 		addComponentsToComboBox();
+		comboboxPostalCode.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				selectedPostalCode = (String) comboboxPostalCode.getSelectedItem();
+				
+				
+			}
+		});
 		
 	}
 	
 	
 	private void setTextField(){
 		
+//		try {
+//			
+//			textFieldPesel = new JFormattedTextField(new MaskFormatter("###########"));
+//		} 
+//		
+//		catch (ParseException e1) {
+//			
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+		
 		textFieldPesel = new JTextField(textFieldDefaultPesel);
+		textFieldPesel.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				userPesel = (String) textFieldPesel.getText();
+			
+				
+			}
+		});
 		
-		
+		textFieldPesel.addKeyListener(new KeyAdapter() {
+		    
+			@Override
+			public void keyTyped(KeyEvent e) {
+		      
+				char c = e.getKeyChar();
+					if (!((c >= '0') && (c <= '9') ||
+							(c == KeyEvent.VK_BACK_SPACE) ||
+							(c == KeyEvent.VK_DELETE))) {
+						getToolkit().beep();
+						e.consume();
+		      }
+		    }
+		  });
 	}
 	
 	private void setButton(){
 		
 		buttonLogin = new JButton(textLoginButton);
+		//buttonLogin.setEnabled(false);
 		buttonLogin.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
 				
+				JOptionPane.showMessageDialog(null, "Wybrałeś kod: " + selectedPostalCode
+						+ "\nWybrałeś PESEL: " + userPesel);
 			}
 		});
 		

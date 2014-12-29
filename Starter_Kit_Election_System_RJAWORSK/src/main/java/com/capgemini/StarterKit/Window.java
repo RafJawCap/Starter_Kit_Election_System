@@ -4,6 +4,7 @@ package com.capgemini.StarterKit;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 // import javax.swing.JPanel;
 
 
@@ -44,7 +45,7 @@ public class Window extends JFrame {
         frame1.setVisible(true);
         
         frame2.pack();
-        frame2.setVisible(true);
+        //frame2.setVisible(true);
         
         
         
