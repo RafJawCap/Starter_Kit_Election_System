@@ -18,19 +18,19 @@ public class CandidateChoicePane extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	// Strings
-    private static final String textConfirmButton = "Zatwierdź";
-    private static final String textWindow = "Okręg wyborczy";
+    private  final String textConfirmButton = "Zatwierdź";
+    private  final String textWindow = "Okręg wyborczy";
     
     //Arrays
     
-    private static String[] Candidates = {"Adam Abacki", "Bronisław Babacki", "Cezary Cabacki"};
+    private String[] Candidates = {"Adam Abacki", "Bronisław Babacki", "Cezary Cabacki"};
     
     // JComponents
-    private static JButton buttonConfirm;
+    private JButton buttonConfirm;
     
     //JPanels
-    private static JPanel paneJRadioButtons = new JPanel();
-    private static JPanel paneConfirmButton = new JPanel();
+    private JPanel paneJRadioButtons = new JPanel();
+    private JPanel paneConfirmButton = new JPanel();
     
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -63,7 +63,7 @@ public class CandidateChoicePane extends JPanel {
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // Add JComponents
     
-    private static JPanel addButtonPane(JPanel Pane){
+    private JPanel addButtonPane(JPanel Pane){
     	
     	buttonConfirm = new JButton(textConfirmButton);
     	buttonConfirm.setAlignmentX(CENTER_ALIGNMENT);
@@ -73,7 +73,7 @@ public class CandidateChoicePane extends JPanel {
         return Pane;
     }
         
-    private static JPanel addJRadioButtons(JPanel Pane, String[] Candidates){
+    private JPanel addJRadioButtons(JPanel Pane, String[] Candidates){
     	
     	// Pane.setAlignmentX(Box.CENTER_ALIGNMENT);
 		Pane.setLayout(new BoxLayout(Pane, BoxLayout.Y_AXIS));
@@ -115,7 +115,7 @@ public class CandidateChoicePane extends JPanel {
     
     // Gets & Sets
     
-    public static String getPaneName(){ return textWindow; }
+    public String getPaneName(){ return textWindow; }
     
 
     

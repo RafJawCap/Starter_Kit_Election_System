@@ -6,19 +6,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.text.ParseException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.text.MaskFormatter;
 
 public class LoginPane extends JPanel {
 	
@@ -31,35 +30,34 @@ public class LoginPane extends JPanel {
 	private static final long serialVersionUID = 1L;
 	
 	// Strings
-    private static final String textlabelPESEL = "Pesel";
-    private static final String textFieldDefaultPesel = "PESEL";
-    private static final String textlabelZipCode = "Kod pocztowy";
-    private static final String textLoginButton = "Login";
-    private static final String textWindow = "Login";
+    private final String textlabelPESEL = "Pesel";
+    private final String textFieldDefaultPesel = "PESEL";
+    private final String textlabelZipCode = "Kod pocztowy";
+    private final String textLoginButton = "Login";
+    private final String textWindow = "Login";
     
     // Numbers
-    private static final Dimension sizeComboBox = new Dimension(100,20);
-    private static final Dimension sizeTextField = new Dimension(150,20);
+    private final Dimension sizeComboBox = new Dimension(100,20);
+    private final Dimension sizeTextField = new Dimension(150,20);
     
     //Arrays
-    private static String[] arrayComboBox = {"58-316","02-212","50-362"};
+    private String[] arrayComboBox = {"      ","58-316","02-212","50-362"};
     
     // JComponents
-    private static JLabel labelZipCode = new JLabel(textlabelZipCode);
-    private static JLabel labelPESEL = new JLabel(textlabelPESEL);
+    private JLabel labelZipCode = new JLabel(textlabelZipCode);
+    private JLabel labelPESEL = new JLabel(textlabelPESEL);
     
-    private static JComboBox<String> comboboxPostalCode;
-    private static JTextField textFieldPesel;
-    private static JButton buttonLogin;
+    private JComboBox<String> comboboxPostalCode;
+    private JTextField textFieldPesel;
+    private JButton buttonLogin;
     
     // JPanels
-    private static JPanel paneZipCode = new JPanel();
-    private static JPanel panePeselField = new JPanel();
+    private JPanel paneZipCode = new JPanel();
+    private JPanel panePeselField = new JPanel();
     
     // Selected ones
-    
-    private static String selectedPostalCode;
-    private static String userPesel;
+    private String selectedPostalCode = "";
+    private String userPesel = "";
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
@@ -120,7 +118,6 @@ public class LoginPane extends JPanel {
     // Set functionality & content in each JComponent
 	
 	
-	
 	private void setCombobox(){
 		
 		comboboxPostalCode = new JComboBox<String>();
@@ -154,30 +151,44 @@ public class LoginPane extends JPanel {
 //		}
 		
 		textFieldPesel = new JTextField(textFieldDefaultPesel);
-		textFieldPesel.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-				userPesel = (String) textFieldPesel.getText();
-			
-				
-			}
+		
+		textFieldPesel.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+                textFieldPesel.setText("");
+                userPesel = "";
+            }
 		});
 		
 		textFieldPesel.addKeyListener(new KeyAdapter() {
 		    
 			@Override
 			public void keyTyped(KeyEvent e) {
-		      
-				char c = e.getKeyChar();
-					if (!((c >= '0') && (c <= '9') ||
-							(c == KeyEvent.VK_BACK_SPACE) ||
-							(c == KeyEvent.VK_DELETE))) {
-						getToolkit().beep();
-						e.consume();
-		      }
+				
+				String temp_str = "";
+				char c = e.getKeyChar(); 
+				
+					if (	!(	(c >= '0') && (c <= '9') || 
+								(c == KeyEvent.VK_BACK_SPACE) || 
+								(c == KeyEvent.VK_DELETE)
+																	) 
+							||	userPesel.length() > 10	 				)
+																
+						{
+							getToolkit().beep();
+							e.consume();
+								if (	!( 	(c == KeyEvent.VK_BACK_SPACE) ||
+											(c == KeyEvent.VK_DELETE)	)	)
+									{
+										JOptionPane.showMessageDialog(null, "W polu \"Pesel\" należy wprowadzić 11 cyfr "
+																			+ "z zakresu od 0 do 9!\n"  + selectedPostalCode);
+									}	
+						}
+					else
+						{
+							temp_str = Character.toString(c);
+							userPesel += temp_str;
+						}
 		    }
 		  });
 	}
@@ -191,9 +202,19 @@ public class LoginPane extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+//				if(userPesel.length() == 11 && selectedPostalCode.length() != 0)
+//					{
+//					buttonLogin.setEnabled(true);
+//					JOptionPane.showMessageDialog(null, "Wybrałeś kod: " + selectedPostalCode
+//													+ "\nWybrałeś PESEL: " + userPesel);
+//					//Window.changePaneInFrame(new CandidateChoicePane());
+//					}
+//				else
+//					JOptionPane.showMessageDialog(null, "Coś jest nie tak!!!! Popraw się!!!  " 
+//															+ userPesel.length() + "   " + selectedPostalCode.length());
 				
-				JOptionPane.showMessageDialog(null, "Wybrałeś kod: " + selectedPostalCode
-						+ "\nWybrałeś PESEL: " + userPesel);
+				//Window.changePaneInFrame(new CandidateChoicePane());
+				
 			}
 		});
 		
@@ -211,7 +232,7 @@ public class LoginPane extends JPanel {
     // Gets & Sets
 	
 
-		public static String getPaneName() {
+		public String getPaneName() {
 		
 			return textWindow;
 		}

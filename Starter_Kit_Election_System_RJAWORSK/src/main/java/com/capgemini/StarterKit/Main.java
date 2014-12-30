@@ -1,6 +1,5 @@
 package com.capgemini.StarterKit;
 
-import java.awt.Color;
 
 public class Main {
 
@@ -10,8 +9,7 @@ public class Main {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 Window MainWindow = new Window();
-                MainWindow.setVisible(false);
-                MainWindow.setBackground(Color.blue);
+                MainWindow.setVisible(true);
             }
         });
     }
