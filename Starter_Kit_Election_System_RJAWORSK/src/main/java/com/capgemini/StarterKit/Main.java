@@ -8,7 +8,7 @@ public class Main {
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                Window MainWindow = new Window();
+                MainFrame MainWindow = new MainFrame();
                 MainWindow.setVisible(true);
             }
         });

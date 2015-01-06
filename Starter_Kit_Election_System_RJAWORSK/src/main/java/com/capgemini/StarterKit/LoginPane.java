@@ -215,6 +215,7 @@ public class LoginPane extends JPanel {
 				
 				//Window.changePaneInFrame(new CandidateChoicePane());
 				
+				
 			}
 		});
 		
