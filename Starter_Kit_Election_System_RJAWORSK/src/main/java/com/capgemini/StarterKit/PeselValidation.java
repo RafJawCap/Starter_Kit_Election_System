@@ -234,8 +234,29 @@ public class PeselValidation {
 		
 	}
 
+//	public boolean checkIfBirthDateIsValidInCalendar() {
+//		
+//		Date date = this.checkBirthDate();
+//		
+//		 try {
+//	            GregorianCalendar gc = new GregorianCalendar();
+//	            gc.setLenient(false);        // must do this
+//	            gc.setTime(date);
+//
+//	            gc.getTime(); // exception thrown here
+//	            
+//
+//	        }
+//	        catch (Exception e) {
+//	            e.printStackTrace();
+//	            return false;
+//	        }
+//		 
+//		 return true;
+//	    }
+		
+		
+	}
+
 
 	
-	
-
-}

@@ -97,7 +97,7 @@ public class PeselCompleteTest {
 	}
 	
 	@Test
-	public void PeselShoudReturnCorrectDateOfBirthForRange_1900_1999() throws Exception {
+	public void PeselShouldReturnCorrectDateOfBirthForRange_1900_1999() throws Exception {
 		
 		// given
 		PeselValidation peselValidation = new PeselValidation();
@@ -117,7 +117,7 @@ public class PeselCompleteTest {
 	}
 	
 	@Test
-	public void PeselShoudReturnCorrectDateOfBirthForRange_1800_1899() throws Exception {
+	public void PeselShouldReturnCorrectDateOfBirthForRange_1800_1899() throws Exception {
 		
 		// given
 		PeselValidation peselValidation = new PeselValidation();
@@ -137,7 +137,7 @@ public class PeselCompleteTest {
 	}
 
 	@Test
-	public void PeselShoudReturnCorrectDateOfBirthForRange_2000_2099() throws Exception {
+	public void PeselShouldReturnCorrectDateOfBirthForRange_2000_2099() throws Exception {
 		
 		// given
 		PeselValidation peselValidation = new PeselValidation();
@@ -157,7 +157,7 @@ public class PeselCompleteTest {
 	}
 
 	@Test
-	public void PeselShoudReturnCorrectDateOfBirthForRange_2100_2199() throws Exception {
+	public void PeselShouldReturnCorrectDateOfBirthForRange_2100_2199() throws Exception {
 		
 		// given
 		PeselValidation peselValidation = new PeselValidation();
@@ -177,7 +177,7 @@ public class PeselCompleteTest {
 	}
 
 	@Test
-	public void PeselShoudReturnCorrectDateOfBirthForRange_2200_2299() throws Exception {
+	public void PeselShouldReturnCorrectDateOfBirthForRange_2200_2299() throws Exception {
 		
 		// given
 		PeselValidation peselValidation = new PeselValidation();
@@ -197,7 +197,7 @@ public class PeselCompleteTest {
 	}
 	
 	@Test
-	public void PeselShoudCheckRightToParticipateInElectionForAdultPerson() throws Exception {
+	public void PeselShouldCheckRightToParticipateInElectionForAdultPerson() throws Exception {
 		
 		// given
 		PeselValidation peselValidation = new PeselValidation();
@@ -212,7 +212,7 @@ public class PeselCompleteTest {
 	}
 
 	@Test
-	public void PeselShoudCheckRightToParticipateInElectionForImmaturePerson() throws Exception {
+	public void PeselShouldCheckRightToParticipateInElectionForImmaturePerson() throws Exception {
 		
 		// given
 		PeselValidation peselValidation = new PeselValidation();
@@ -225,4 +225,19 @@ public class PeselCompleteTest {
 		Assertions.assertThat(peselValidation.checkRightToParticipateInElection()).isEqualTo(false);
 		
 	}
+	
+//	@Test
+//	public void PeselDateOfBirthShouldBeValid() throws Exception {
+//		
+//		// given
+//		PeselValidation peselValidation = new PeselValidation();
+//		
+//		// when
+//		peselValidation.setPeselNumber("12022907758");
+//		
+//		// then
+//		Assertions.assertThat(peselValidation.checkIfBirthDateIsValidInCalendar()).isEqualTo(false);
+//		
+//	}
+	
 }
