@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 
 public class MainFrame extends JFrame {
@@ -20,7 +21,7 @@ public class MainFrame extends JFrame {
 	private int locationFrameY;
 	
 	
-	LoginPane loginPane = new LoginPane();
+	LoginPane loginPane = new LoginPane(this);
 	CandidateChoicePane candidateChoicePane = new CandidateChoicePane();
 	
 	
@@ -56,15 +57,15 @@ public class MainFrame extends JFrame {
     	
     }
     
-//    private void changePaneInFrame(JPanel newPane){
-//    	
-//    	this.getContentPane().removeAll();
-//    	this.getContentPane().add(newPane);
-//    	this.getContentPane().revalidate();
-//    	
-//    }
     
-// public Window() {
+    public void changePaneInFrame(JPanel newPane) {
+    	getContentPane().removeAll();
+    	getContentPane().add(newPane);
+    	getContentPane().revalidate();
+    	
+    }
+    
+// public Window() { 
 //    	
 //        //Create and set up the window.
 //        JFrame frame1 = new JFrame(LoginPane.getPaneName());
