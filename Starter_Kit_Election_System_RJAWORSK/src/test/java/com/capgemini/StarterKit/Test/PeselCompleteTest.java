@@ -26,7 +26,7 @@ public class PeselCompleteTest {
 		PeselValidation peselValidation = new PeselValidation();
 		
 		// when
-		peselValidation.setPeselNumber(myPesel);
+		peselValidation.setPeselNumber(momPesel);
 		
 		// then
 		Assertions.assertThat(peselValidation.checkNumberOfCharacters()).isEqualTo(11);
