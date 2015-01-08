@@ -80,7 +80,7 @@ public class PeselValidation {
 	
 	}
 
-	public Date checkBirthDate() {
+	public Date checkBirthDate() throws ParseException {
 		
 		String yearOfBirth = pesel.substring(0, 2);
 		String monthOfBirth = pesel.substring(2, 4);
@@ -182,13 +182,7 @@ public class PeselValidation {
 					
 					dateOfBirth = dayOfBirth + "." + finalMonthOfBirth + "." + finalYearOfBirth;
 					
-					try { date = dateFormatter.parse(dateOfBirth);} 
-					
-					catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
+					date = dateFormatter.parse(dateOfBirth);
 					return date;
 				}
 				
@@ -218,7 +212,7 @@ public class PeselValidation {
 //		return date;
 	}
 
-	public boolean checkRightToParticipateInElection() {
+	public boolean checkRightToParticipateInElection() throws ParseException {
 		
 		Date date = this.checkBirthDate();
 		

@@ -58,6 +58,8 @@ public class LoginPane extends JPanel {
     // Selected ones
     private String selectedPostalCode = "";
     private String userPesel = "";
+
+	private MainFrame mainFrame;
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
@@ -66,20 +68,24 @@ public class LoginPane extends JPanel {
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // Constructor
     
-    public LoginPane(){
-    	
-    	setCombobox();
-    	setTextField();
-    	setButton();
-    	
-    	createLoginWindowPane();
-    	
-    };
   
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // Creating Main Interface
     
+	public LoginPane(MainFrame mainFrame) {
+		
+		this.mainFrame = mainFrame;
+		
+		setCombobox();
+		setTextField();
+		setButton();
+		
+		createLoginWindowPane();
+		
+	}
+
+
 	private void createLoginWindowPane() {
        
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -202,18 +208,20 @@ public class LoginPane extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-//				if(userPesel.length() == 11 && selectedPostalCode.length() != 0)
-//					{
-//					buttonLogin.setEnabled(true);
-//					JOptionPane.showMessageDialog(null, "Wybrałeś kod: " + selectedPostalCode
-//													+ "\nWybrałeś PESEL: " + userPesel);
-//					//Window.changePaneInFrame(new CandidateChoicePane());
-//					}
-//				else
-//					JOptionPane.showMessageDialog(null, "Coś jest nie tak!!!! Popraw się!!!  " 
-//															+ userPesel.length() + "   " + selectedPostalCode.length());
+				if(userPesel.length() == 11 && selectedPostalCode.length() != 0)
+					{
+					buttonLogin.setEnabled(true);
+					JOptionPane.showMessageDialog(null, "Wybrałeś kod: " + selectedPostalCode
+													+ "\nWybrałeś PESEL: " + userPesel);
+					//Window.changePaneInFrame(new CandidateChoicePane());
+					}
+				else
+					JOptionPane.showMessageDialog(null, "Coś jest nie tak!!!! Popraw się!!!  " 
+															+ userPesel.length() + "   " + selectedPostalCode.length());
 				
 				//Window.changePaneInFrame(new CandidateChoicePane());
+				
+				mainFrame.changePaneInFrame(new CandidateChoicePane());
 				
 				
 			}
