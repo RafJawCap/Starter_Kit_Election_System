@@ -65,6 +65,12 @@ public class MainFrame extends JFrame {
     	
     }
     
+    public void changeTitleInFrame(String string) {
+    	
+    	this.setTitle(string);
+    	
+    }
+    
 // public Window() { 
 //    	
 //        //Create and set up the window.

@@ -48,7 +48,7 @@ public class LoginPane extends JPanel {
     private JLabel labelPESEL = new JLabel(textlabelPESEL);
     
     private JComboBox<String> comboboxPostalCode;
-    private JTextField textFieldPesel;
+    private static JTextField textFieldPesel;
     private JButton buttonLogin;
     
     // JPanels
@@ -57,9 +57,10 @@ public class LoginPane extends JPanel {
     
     // Selected ones
     private String selectedPostalCode = "";
-    private String userPesel = "";
+    public static String userPesel = "";
 
 	private MainFrame mainFrame;
+    private PeselValidation peselValidation = new PeselValidation();
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
@@ -128,104 +129,23 @@ public class LoginPane extends JPanel {
 		
 		comboboxPostalCode = new JComboBox<String>();
 		addComponentsToComboBox();
-		comboboxPostalCode.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-				selectedPostalCode = (String) comboboxPostalCode.getSelectedItem();
-				
-				
-			}
-		});
+		comboboxPostalCode.addActionListener(getComboboxPostalCodeActionListener());
 		
 	}
 	
 	
 	private void setTextField(){
 		
-//		try {
-//			
-//			textFieldPesel = new JFormattedTextField(new MaskFormatter("###########"));
-//		} 
-//		
-//		catch (ParseException e1) {
-//			
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-		
 		textFieldPesel = new JTextField(textFieldDefaultPesel);
-		
-		textFieldPesel.addMouseListener(new MouseAdapter(){
-            @Override
-            public void mouseClicked(MouseEvent e){
-                textFieldPesel.setText("");
-                userPesel = "";
-            }
-		});
-		
-		textFieldPesel.addKeyListener(new KeyAdapter() {
-		    
-			@Override
-			public void keyTyped(KeyEvent e) {
-				
-				String temp_str = "";
-				char c = e.getKeyChar(); 
-				
-					if (	!(	(c >= '0') && (c <= '9') || 
-								(c == KeyEvent.VK_BACK_SPACE) || 
-								(c == KeyEvent.VK_DELETE)
-																	) 
-							||	userPesel.length() > 10	 				)
-																
-						{
-							getToolkit().beep();
-							e.consume();
-								if (	!( 	(c == KeyEvent.VK_BACK_SPACE) ||
-											(c == KeyEvent.VK_DELETE)	)	)
-									{
-										JOptionPane.showMessageDialog(null, "W polu \"Pesel\" należy wprowadzić 11 cyfr "
-																			+ "z zakresu od 0 do 9!\n"  + selectedPostalCode);
-									}	
-						}
-					else
-						{
-							temp_str = Character.toString(c);
-							userPesel += temp_str;
-						}
-		    }
-		  });
+		textFieldPesel.addMouseListener(getTextFieldPeselMouseListener());
+		textFieldPesel.addKeyListener(getTextFieldPeselKeyListener());
 	}
 	
 	private void setButton(){
 		
 		buttonLogin = new JButton(textLoginButton);
-		//buttonLogin.setEnabled(false);
-		buttonLogin.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				if(userPesel.length() == 11 && selectedPostalCode.length() != 0)
-					{
-					buttonLogin.setEnabled(true);
-					JOptionPane.showMessageDialog(null, "Wybrałeś kod: " + selectedPostalCode
-													+ "\nWybrałeś PESEL: " + userPesel);
-					//Window.changePaneInFrame(new CandidateChoicePane());
-					}
-				else
-					JOptionPane.showMessageDialog(null, "Coś jest nie tak!!!! Popraw się!!!  " 
-															+ userPesel.length() + "   " + selectedPostalCode.length());
-				
-				//Window.changePaneInFrame(new CandidateChoicePane());
-				
-				mainFrame.changePaneInFrame(new CandidateChoicePane());
-				
-				
-			}
-		});
+		buttonLogin.setEnabled(false);
+		buttonLogin.addActionListener(getButtonLoginActionListener());
 		
 	}
 
@@ -238,6 +158,117 @@ public class LoginPane extends JPanel {
 	}
 	
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // Set ActionListeners & Adapters
+	
+	private ActionListener getComboboxPostalCodeActionListener(){
+	
+	return new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+			selectedPostalCode = (String) comboboxPostalCode.getSelectedItem();
+		
+		}
+	};
+	
+}
+	
+	
+	private MouseAdapter getTextFieldPeselMouseListener(){
+	
+	return new MouseAdapter(){
+        @Override
+        public void mouseClicked(MouseEvent e){
+            textFieldPesel.setText("");
+            userPesel = "";
+            buttonLogin.setEnabled(false);
+        }
+	};
+}
+	
+	private KeyAdapter getTextFieldPeselKeyListener(){
+	
+	return new KeyAdapter() {
+	    
+		@Override
+		public void keyTyped(KeyEvent e) {
+			
+			String temp_str = "";
+			char c = e.getKeyChar(); 
+			
+				if (	!(	(c >= '0') && (c <= '9') || 
+							(c == KeyEvent.VK_BACK_SPACE) || 
+							(c == KeyEvent.VK_DELETE)
+																) 
+						||	userPesel.length() > 10	 				)
+															
+					{
+						getToolkit().beep();
+						e.consume();
+							if (	!( 	(c == KeyEvent.VK_BACK_SPACE) ||
+										(c == KeyEvent.VK_DELETE)	)	)
+								{
+									//JOptionPane.showMessageDialog(null, "W polu \"Pesel\" należy wprowadzić 11 cyfr "
+									//									+ "z zakresu od 0 do 9!\n"  + selectedPostalCode);
+								}	
+					}
+				else
+					{
+						temp_str = Character.toString(c);
+						userPesel += temp_str;
+							if (userPesel.length() == 11)
+							{
+								buttonLogin.setEnabled(true);
+							}
+					}
+	    }
+		
+	  };
+	  
+}
+	
+	
+	private ActionListener getButtonLoginActionListener(){
+	
+	return new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			peselValidation.setPeselNumber(userPesel);
+			
+			if(selectedPostalCode.length() != 0 && peselValidation.peselCorrectionTest())
+				{
+				
+				JOptionPane.showMessageDialog(null, "Wybrałeś okręg wyborczy: " + selectedPostalCode
+												+ "\n\nWprowadziłeś PESEL: " + userPesel
+												+ "\n\nTeraz zagłosuj na swojego kandydata!",
+												"Informacja", JOptionPane.INFORMATION_MESSAGE);
+				
+				mainFrame.changePaneInFrame(new CandidateChoicePane());
+				mainFrame.changeTitleInFrame(CandidateChoicePane.getPaneName() + " " +selectedPostalCode);
+				
+				}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "Brak kodu pocztowego lub nieprawidłowy Pesel!"
+													+ "\nSpróbuj jeszcze raz!" );
+												//		+ userPesel.length() + "   " + selectedPostalCode.length());
+				
+
+			
+					textFieldPesel.setText("");
+					userPesel = "";
+			}
+							
+		}
+	};
+	
+}
+	
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // Gets & Sets
 	
 
@@ -245,4 +276,12 @@ public class LoginPane extends JPanel {
 		
 			return textWindow;
 		}
+		
+		public static JTextField getTextFieldPesel(){
+			
+			return textFieldPesel;
+			
+		}
+
+		
 }

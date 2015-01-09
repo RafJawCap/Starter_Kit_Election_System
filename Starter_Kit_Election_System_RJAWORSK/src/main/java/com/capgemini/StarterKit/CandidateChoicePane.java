@@ -19,7 +19,7 @@ public class CandidateChoicePane extends JPanel {
 	
 	// Strings
     private  final String textConfirmButton = "Zatwierdź";
-    private  final String textWindow = "Okręg wyborczy";
+    private  final static String textWindow = "Okręg wyborczy";
     
     //Arrays
     
@@ -40,6 +40,7 @@ public class CandidateChoicePane extends JPanel {
     public CandidateChoicePane(){
     	
     	createCandidateChoicePane();
+    	
     	
     };
         
@@ -115,7 +116,7 @@ public class CandidateChoicePane extends JPanel {
     
     // Gets & Sets
     
-    public String getPaneName(){ return textWindow; }
+    public static String getPaneName(){ return textWindow; }
     
 
     

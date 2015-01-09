@@ -9,6 +9,7 @@ import org.fest.assertions.Assertions;
 import org.junit.Test;
 
 import com.capgemini.StarterKit.PeselValidation;
+import com.capgemini.StarterKit.Sex;
 
 public class PeselCompleteTest {
 
@@ -26,7 +27,7 @@ public class PeselCompleteTest {
 		PeselValidation peselValidation = new PeselValidation();
 		
 		// when
-		peselValidation.setPeselNumber(momPesel);
+		peselValidation.setPeselNumber(myPesel);
 		
 		// then
 		Assertions.assertThat(peselValidation.checkNumberOfCharacters()).isEqualTo(11);
@@ -59,7 +60,7 @@ public class PeselCompleteTest {
 		peselValidation.setPeselNumber(dadPesel);
 		
 		// then
-		Assertions.assertThat(peselValidation.checkSex()).isEqualTo("Mężczyzna");
+		Assertions.assertThat(peselValidation.checkSex()).isEqualTo(Sex.SexOfVoter.MALE);
 		
 	}
 		
@@ -73,7 +74,7 @@ public class PeselCompleteTest {
 		peselValidation.setPeselNumber(momPesel);
 				
 		// then
-		Assertions.assertThat(peselValidation.checkSex()).isEqualTo("Kobieta");
+		Assertions.assertThat(peselValidation.checkSex()).isEqualTo(Sex.SexOfVoter.FEMALE);
 		
 	}
 
