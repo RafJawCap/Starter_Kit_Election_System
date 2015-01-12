@@ -1,18 +1,15 @@
 package com.capgemini.StarterKit;
 
-
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
 public class MainFrame extends JFrame {
 
-	/**
-	 * 
-	 */
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	// Class Fields
 	private static final long serialVersionUID = 1L;
 	
 	private final int widthFrameLW = 400;
@@ -20,23 +17,30 @@ public class MainFrame extends JFrame {
 	private int locationFrameX;
 	private int locationFrameY;
 	
-	
+	// JPanels
 	LoginPane loginPane = new LoginPane(this);
-	CandidateChoicePane candidateChoicePane = new CandidateChoicePane();
+	CandidateChoicePane candidateChoicePane = new CandidateChoicePane(this);
 	
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // Constructor
 	
 	public MainFrame() {
     	
     	setWindowProperties();
+    	pack();
+    	
+    	setLocationRelativeTo(null);
     	setWindowLocation();
     	
-    	pack();
-    	this.add(loginPane);
+    	this.getContentPane().add(loginPane);
     	this.setTitle(loginPane.getPaneName());
-    	this.setLocationByPlatform(true);
         
     }
  
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // Class methods
+	
     private void setWindowProperties(){
     	
     	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,45 +63,27 @@ public class MainFrame extends JFrame {
     
     
     public void changePaneInFrame(JPanel newPane) {
+    	
     	getContentPane().removeAll();
     	getContentPane().add(newPane);
     	getContentPane().revalidate();
     	
     }
     
+    public void closeWindow() {
+    	
+    	setVisible(false);
+    	dispose();
+    	
+    }
+    
+    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // Gets & Sets
+    
     public void changeTitleInFrame(String string) {
     	
     	this.setTitle(string);
     	
     }
-    
-// public Window() { 
-//    	
-//        //Create and set up the window.
-//        JFrame frame1 = new JFrame(LoginPane.getPaneName());
-//        JFrame frame2 = new JFrame(CandidateChoicePane.getPaneName());
-//
-//        setWindowProperties();
-//        
-//        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame1.setMinimumSize(new Dimension(widthFrameLW,heightFrameLW));
-//        
-//        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame2.setMinimumSize(new Dimension(widthFrameLW,heightFrameLW));
-//        
-//        LoginPane LoginPane = new LoginPane();
-//        CandidateChoicePane CandidateChoicePane = new CandidateChoicePane();
-//        
-//        //Set up the content pane
-//        frame1.add(LoginPane);
-//        frame2.add(CandidateChoicePane);
-//        
-//        //Display the window.
-//        frame1.pack();
-//        frame1.setVisible(true);
-//        
-//        frame2.pack();
-//        frame2.setVisible(true);
-    
 
 }

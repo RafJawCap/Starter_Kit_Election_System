@@ -2,13 +2,8 @@ package com.capgemini.StarterKit;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-//import java.util.Calendar;
 import java.util.Date;
-//import java.util.GregorianCalendar;
-
 import org.joda.time.DateTime;
-
 import com.capgemini.StarterKit.Sex.SexOfVoter;
 
 
@@ -31,7 +26,11 @@ public class PeselValidation {
 	
 	public PeselValidation()
 	{
-
+		flagNumberOfCharacters = false;
+		flagIfOnlyDigits = false;
+		flagCheckPeselSecureDigit = false;
+		flagRightToParticipateInElection = false;
+		flagCorrectBirthDate = false;
 	}
 	
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -58,12 +57,13 @@ public class PeselValidation {
 				&&	flagCheckPeselSecureDigit
 				&&	flagRightToParticipateInElection 
 				&&	flagCorrectBirthDate 				)
-			
-			return true;
-		
+			{
+				return true;
+			}
 		else
-			return false;
-		
+			{
+				return false;
+			}
 	}
 	
 	public Date getBirthDate(){ return birthDate; }
@@ -108,11 +108,6 @@ public class PeselValidation {
 		
 		else
 			return sex = Sex.SexOfVoter.MALE;	
-		
-//		else if (sexIdentyficationNumber % 2 == 1)
-//			return Sex.SexOfVoter.MALE;
-//		else
-//			return Sex.SexOfVoter.NONE;
 	}
 
 	public int checkPeselSecureDigit() {

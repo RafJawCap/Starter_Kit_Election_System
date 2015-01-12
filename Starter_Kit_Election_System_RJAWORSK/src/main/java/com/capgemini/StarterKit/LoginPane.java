@@ -21,9 +21,7 @@ import javax.swing.JTextField;
 
 public class LoginPane extends JPanel {
 	
-	/**
-	 * 
-	 */
+	
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	// Class Fields
 	
@@ -54,25 +52,20 @@ public class LoginPane extends JPanel {
     // JPanels
     private JPanel paneZipCode = new JPanel();
     private JPanel panePeselField = new JPanel();
-    
-    // Selected ones
-    private String selectedPostalCode = "";
-    public static String userPesel = "";
 
+    // Objects from foreign classes 
 	private MainFrame mainFrame;
     private PeselValidation peselValidation = new PeselValidation();
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
+    // Selected ones
+    public static  String selectedPostalCode = "";
+    public static  String userPesel = "";
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // Constructor
-    
-  
-    
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    // Creating Main Interface
     
 	public LoginPane(MainFrame mainFrame) {
 		
@@ -85,10 +78,13 @@ public class LoginPane extends JPanel {
 		createLoginWindowPane();
 		
 	}
-
-
+    
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // Creating Main Interface
+    
 	private void createLoginWindowPane() {
        
+		this.setAlignmentX(CENTER_ALIGNMENT);
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         
         this.add(Box.createVerticalGlue());
@@ -168,7 +164,7 @@ public class LoginPane extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			
-			selectedPostalCode = (String) comboboxPostalCode.getSelectedItem();
+			selectedPostalCode = comboboxPostalCode.getSelectedItem().toString();
 		
 		}
 	};
@@ -210,8 +206,8 @@ public class LoginPane extends JPanel {
 							if (	!( 	(c == KeyEvent.VK_BACK_SPACE) ||
 										(c == KeyEvent.VK_DELETE)	)	)
 								{
-									//JOptionPane.showMessageDialog(null, "W polu \"Pesel\" należy wprowadzić 11 cyfr "
-									//									+ "z zakresu od 0 do 9!\n"  + selectedPostalCode);
+									JOptionPane.showMessageDialog(null, "W polu \"Pesel\" należy wprowadzić 11 cyfr "
+																		+ "z zakresu od 0 do 9!\n"  + selectedPostalCode);
 								}	
 					}
 				else
@@ -243,11 +239,11 @@ public class LoginPane extends JPanel {
 				{
 				
 				JOptionPane.showMessageDialog(null, "Wybrałeś okręg wyborczy: " + selectedPostalCode
-												+ "\n\nWprowadziłeś PESEL: " + userPesel
-												+ "\n\nTeraz zagłosuj na swojego kandydata!",
+												+ "\nWprowadziłeś PESEL: " + userPesel
+												+ "\n\nTeraz zagłosuj na swojego kandydata!\n\n",
 												"Informacja", JOptionPane.INFORMATION_MESSAGE);
 				
-				mainFrame.changePaneInFrame(new CandidateChoicePane());
+				mainFrame.changePaneInFrame(new CandidateChoicePane(mainFrame));
 				mainFrame.changeTitleInFrame(CandidateChoicePane.getPaneName() + " " +selectedPostalCode);
 				
 				}

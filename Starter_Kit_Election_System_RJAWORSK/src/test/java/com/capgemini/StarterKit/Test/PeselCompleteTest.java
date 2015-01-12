@@ -1,10 +1,7 @@
 package com.capgemini.StarterKit.Test;
 
-//import static org.junit.Assert.*;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.fest.assertions.Assertions;
 import org.junit.Test;
 
