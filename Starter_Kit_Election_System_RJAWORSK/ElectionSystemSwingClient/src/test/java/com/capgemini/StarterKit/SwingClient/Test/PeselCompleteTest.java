@@ -1,12 +1,13 @@
-package com.capgemini.StarterKit.Test;
+package com.capgemini.StarterKit.SwingClient.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import org.fest.assertions.Assertions;
 import org.junit.Test;
 
-import com.capgemini.StarterKit.PeselValidation;
-import com.capgemini.StarterKit.Sex;
+import com.capgemini.StarterKit.SwingClient.PeselValidation;
+import com.capgemini.StarterKit.SwingClient.Sex;
 
 public class PeselCompleteTest {
 

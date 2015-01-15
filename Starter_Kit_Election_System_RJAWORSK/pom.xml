@@ -11,5 +11,6 @@
   <packaging>pom</packaging>
   <modules>
   	<module>ElectionSystemSwingClient</module>
+  	<module>ElectionSystemSpringDAO</module>
   </modules>
 </project>

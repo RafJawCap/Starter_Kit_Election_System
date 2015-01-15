@@ -1,4 +1,4 @@
-package com.capgemini.StarterKit;
+package com.capgemini.StarterKit.SwingClient;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -8,6 +8,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -18,6 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import com.capgemini.StarterKit.main.DAOTransfer;
+import com.capgemini.StarterKit.model.ZipCode;
 
 public class LoginPane extends JPanel {
 	
@@ -39,7 +43,7 @@ public class LoginPane extends JPanel {
     private final Dimension sizeTextField = new Dimension(150,20);
     
     //Arrays
-    private String[] arrayComboBox = {"      ","58-316","02-212","50-362"};
+    // private String[] arrayComboBox = {"      ","58-316","02-212","50-362"};
     
     // JComponents
     private JLabel labelZipCode = new JLabel(textlabelZipCode);
@@ -56,12 +60,15 @@ public class LoginPane extends JPanel {
     // Objects from foreign classes 
 	private MainFrame mainFrame;
     private PeselValidation peselValidation = new PeselValidation();
+
+	private List<ZipCode> listZipCodes = null;
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
     // Selected ones
     public static  String selectedPostalCode = "";
     public static  String userPesel = "";
+    public static int postalCodeId;
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -70,6 +77,8 @@ public class LoginPane extends JPanel {
 	public LoginPane(MainFrame mainFrame) {
 		
 		this.mainFrame = mainFrame;
+		
+		listZipCodes = new DAOTransfer().listZipCode;
 		
 		setCombobox();
 		setTextField();
@@ -146,12 +155,19 @@ public class LoginPane extends JPanel {
 	}
 
 	
+//	private void addComponentsToComboBox(){
+//		
+//	  	for (int i = 0; i < arrayComboBox.length; i++) {
+//			comboboxPostalCode.addItem(arrayComboBox[i]);
+//	  	}
+//	}
+	
 	private void addComponentsToComboBox(){
-		
-	  	for (int i = 0; i < arrayComboBox.length; i++) {
-			comboboxPostalCode.addItem(arrayComboBox[i]);
-	  	}
-	}
+	
+		for (ZipCode p : listZipCodes ) {
+			comboboxPostalCode.addItem(p.getZipCode().toString());
+  	}
+}
 	
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // Set ActionListeners & Adapters
@@ -159,13 +175,18 @@ public class LoginPane extends JPanel {
 	private ActionListener getComboboxPostalCodeActionListener(){
 	
 	return new ActionListener() {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			
 			selectedPostalCode = comboboxPostalCode.getSelectedItem().toString();
-		
+				
+				for (ZipCode p : listZipCodes)
+				{
+					if(comboboxPostalCode.getSelectedItem().toString() == p.getZipCode())
+						postalCodeId = p.getId();
+				}
 		}
 	};
 	

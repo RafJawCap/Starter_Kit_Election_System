@@ -1,10 +1,12 @@
-package com.capgemini.StarterKit;
+package com.capgemini.StarterKit.SwingClient;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import org.joda.time.DateTime;
-import com.capgemini.StarterKit.Sex.SexOfVoter;
+
+import com.capgemini.StarterKit.SwingClient.Sex.SexOfVoter;
 
 
 public class PeselValidation {

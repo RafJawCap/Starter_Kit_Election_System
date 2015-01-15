@@ -1,4 +1,4 @@
-package com.capgemini.StarterKit;
+package com.capgemini.StarterKit.SwingClient;
 
 public class Sex {
 

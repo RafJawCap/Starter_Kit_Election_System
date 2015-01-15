@@ -23,6 +23,15 @@
 		<artifactId>junit</artifactId>
 		<version>4.12</version>
 	</dependency>
+	
+	<!-- Dao App Module -->
+	
+	<dependency>
+		<groupId>ElectionSystemSpringDAO</groupId>
+		<artifactId>ElectionSystemSpringDAO</artifactId>
+		<version>v. 1.0</version>
+	</dependency>
+	
   </dependencies>
   
 </project>

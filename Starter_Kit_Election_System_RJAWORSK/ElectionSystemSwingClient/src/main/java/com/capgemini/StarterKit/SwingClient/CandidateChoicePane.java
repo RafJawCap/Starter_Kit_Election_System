@@ -1,7 +1,8 @@
-package com.capgemini.StarterKit;
+package com.capgemini.StarterKit.SwingClient;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -10,6 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+
+import com.capgemini.StarterKit.main.DAOTransfer;
+import com.capgemini.StarterKit.model.Candidate;
 
 
 public class CandidateChoicePane extends JPanel {
@@ -27,17 +31,24 @@ public class CandidateChoicePane extends JPanel {
     
     //Arrays
     
-    private String[] candidates = {"Adam Abacki", "Bronisław Babacki", "Cezary Cabacki", "Damian Dabacki"};
+//    private String[] candidates = {"Adam Abacki", "Bronisław Babacki", "Cezary Cabacki", "Damian Dabacki"};
     
     // JComponents
     private JButton buttonConfirm;
 	private ButtonGroup jRadioButtonsGroup = new ButtonGroup();
 	
-    //JPanels
+    // JPanels
     private JPanel paneJRadioButtons = new JPanel();
     private JPanel paneConfirmButton = new JPanel();
     
+    // JFrames
     private MainFrame mainFrame;
+    
+    // DAO
+    
+    private List<Candidate> listCandidates;
+    private DAOTransfer daoTransfer;
+	//private List<Candidate> selectedListCandidates;
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
@@ -51,6 +62,12 @@ public class CandidateChoicePane extends JPanel {
     public CandidateChoicePane(MainFrame mainFrame){
     	
     	this.mainFrame = mainFrame;
+    	
+    	daoTransfer = new DAOTransfer();
+    	listCandidates = daoTransfer.listCandidate;
+    	
+   // 	selectedListCandidates = daoTransfer.selectCandidateByZipCodeId(LoginPane.postalCodeId);
+   
     	
     	createCandidateChoicePane();
     	
@@ -66,7 +83,7 @@ public class CandidateChoicePane extends JPanel {
 		
 		this.add(Box.createVerticalGlue());
 		
-		this.add(setJRadioButtonsPane(paneJRadioButtons, getJRadioButtonsGroup(), candidates));
+		this.add(setJRadioButtonsPane(paneJRadioButtons, getJRadioButtonsGroup()));
 		this.add(setButtonPane(paneConfirmButton));
 		
         this.add(Box.createVerticalGlue());
@@ -88,19 +105,23 @@ public class CandidateChoicePane extends JPanel {
         return Pane;
     }
         
-    private JPanel setJRadioButtonsPane(JPanel Pane, ActionListener actionListener, String[] Candidates){
+    private JPanel setJRadioButtonsPane(JPanel Pane, ActionListener actionListener){
     	
     	Pane.setAlignmentX(Box.CENTER_ALIGNMENT);
 		Pane.setLayout(new BoxLayout(Pane, BoxLayout.Y_AXIS));
     	
-    	for (int i = 0; i < Candidates.length; i++) {
+    	for (Candidate p : listCandidates) {
     		
-        	JRadioButton newJRadioButton = new JRadioButton(Candidates[i]);
+    		if (p.getZipCodesId() == LoginPane.postalCodeId){
+    		
+        	JRadioButton newJRadioButton = new JRadioButton(" " + p.getSurname() + " " + p.getFirstname());
         	newJRadioButton.setAlignmentX(LEFT_ALIGNMENT);
         	newJRadioButton.addActionListener(actionListener);
         	jRadioButtonsGroup.add(newJRadioButton);
         	Pane.add(newJRadioButton);
 			Pane.add(Box.createVerticalGlue());
+			
+    		}
     	}
     	
     	Pane.add(Box.createVerticalGlue());
