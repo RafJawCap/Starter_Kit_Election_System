@@ -7,10 +7,13 @@
   <description>Election System</description>
   <properties>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<java.version>1.8</java.version>
+	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
   <packaging>pom</packaging>
   <modules>
   	<module>ElectionSystemSwingClient</module>
   	<module>ElectionSystemSpringDAO</module>
+  	<module>ElectionSystemDAO</module>
   </modules>
 </project>
