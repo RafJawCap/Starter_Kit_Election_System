@@ -15,5 +15,6 @@
   	<module>ElectionSystemSwingClient</module>
   	<module>ElectionSystemSpringDAO</module>
   	<module>ElectionSystemDAO</module>
+  	<module>ElectionRestServiceDAO</module>
   </modules>
 </project>

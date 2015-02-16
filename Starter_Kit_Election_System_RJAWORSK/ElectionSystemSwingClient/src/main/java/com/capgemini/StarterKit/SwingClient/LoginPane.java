@@ -8,6 +8,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.Box;
@@ -20,8 +21,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.capgemini.StarterKit.main.DAOTransfer;
-import com.capgemini.StarterKit.model.ZipCode;
+//import com.capgemini.StarterKit.main.DAOTransfer;
+//import com.capgemini.StarterKit.model.ZipCode;
+
+import com.capgemini.StarterKit.entities.ZipCode;
+
+import org.springframework.web.client.RestTemplate;
 
 public class LoginPane extends JPanel {
 	
@@ -78,7 +83,11 @@ public class LoginPane extends JPanel {
 		
 		this.mainFrame = mainFrame;
 		
-		listZipCodes = new DAOTransfer().listZipCode;
+		RestTemplate restTemplate = new RestTemplate();
+		
+		List<ZipCode> listZipCodes = Arrays.asList(restTemplate.getForObject("http://localhost:8080/ElectionRestServiceDAO/ElectionRest/zipCode/findAll", ZipCode[].class));
+		
+		this.listZipCodes = listZipCodes;
 		
 		setCombobox();
 		setTextField();
