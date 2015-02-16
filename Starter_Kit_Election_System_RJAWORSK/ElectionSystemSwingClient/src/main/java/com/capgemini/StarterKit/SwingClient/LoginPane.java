@@ -83,11 +83,7 @@ public class LoginPane extends JPanel {
 		
 		this.mainFrame = mainFrame;
 		
-		RestTemplate restTemplate = new RestTemplate();
-		
-		List<ZipCode> listZipCodes = Arrays.asList(restTemplate.getForObject("http://localhost:8080/ElectionRestServiceDAO/ElectionRest/zipCode/findAll", ZipCode[].class));
-		
-		this.listZipCodes = listZipCodes;
+		RestServiceDataDownload ();
 		
 		setCombobox();
 		setTextField();
@@ -98,8 +94,21 @@ public class LoginPane extends JPanel {
 	}
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    // Creating Main Interface
+    // Downloading data from RestService
     
+	  void RestServiceDataDownload (){
+		  
+			RestTemplate restTemplate = new RestTemplate();
+			
+			List<ZipCode> listZipCodes = Arrays.asList(restTemplate.getForObject(RestServiceAdresses.ZIP_CODE_FIND_ALL, ZipCode[].class));
+			
+			this.listZipCodes = listZipCodes;
+		  
+	  }
+	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	// Creating Main Interface
+	
 	private void createLoginWindowPane() {
        
 		this.setAlignmentX(CENTER_ALIGNMENT);

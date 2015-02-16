@@ -17,6 +17,10 @@ public class CandidateService {
     public List<Candidate> findAll() {
         return repo.findAll();
     }
+    
+    public List<Candidate> findCorrectCandidates(int id) {
+        return repo.loadCorrectCandidate(id);
+    }
 
     public void create(Candidate candidate) {
         repo.saveAndFlush(candidate);

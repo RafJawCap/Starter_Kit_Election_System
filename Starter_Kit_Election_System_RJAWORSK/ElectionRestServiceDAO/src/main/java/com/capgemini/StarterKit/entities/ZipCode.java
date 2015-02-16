@@ -16,18 +16,23 @@ public class ZipCode {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@Column(name="zip_code")
+	@Column(name="zip_code", nullable = false)
 	private String zipCodes;
 
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
-//	public ZipCode() {   }
-//	
-//	public ZipCode(int id, String zipcode){
-//		
-//		this.id = id;
-//		this.zipCodes = zipcode;
-//	}
+	public ZipCode() {   }
+	
+	public ZipCode(String zipcode){
+		
+		this.zipCodes = zipcode;
+	}
+	
+	public ZipCode(int id, String zipcode){
+		
+		this.id = id;
+		this.zipCodes = zipcode;
+	}
 	
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	

@@ -2,6 +2,7 @@ package com.capgemini.StarterKit.SwingClient;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.Box;
@@ -12,9 +13,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import com.capgemini.StarterKit.main.DAOTransfer;
-import com.capgemini.StarterKit.model.Candidate;
 
+
+import org.springframework.web.client.RestTemplate;
+
+//import com.capgemini.StarterKit.main.DAOTransfer;
+//import com.capgemini.StarterKit.model.Candidate;
+import com.capgemini.StarterKit.entities.Candidate;
+//import com.capgemini.StarterKit.entities.ZipCode;
 
 public class CandidateChoicePane extends JPanel {
 	/**
@@ -47,7 +53,7 @@ public class CandidateChoicePane extends JPanel {
     // DAO
     
     private List<Candidate> listCandidates;
-    private DAOTransfer daoTransfer;
+    //private DAOTransfer daoTransfer;
 	//private List<Candidate> selectedListCandidates;
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -63,9 +69,10 @@ public class CandidateChoicePane extends JPanel {
     	
     	this.mainFrame = mainFrame;
     	
-    	daoTransfer = new DAOTransfer();
-    	listCandidates = daoTransfer.listCandidate;
+    	RestServiceDataDownload();
     	
+   // 	daoTransfer = new DAOTransfer();
+   //	listCandidates = daoTransfer.listCandidate;    	
    // 	selectedListCandidates = daoTransfer.selectCandidateByZipCodeId(LoginPane.postalCodeId);
    
     	
@@ -73,6 +80,21 @@ public class CandidateChoicePane extends JPanel {
     	
     };
         
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // Downloading data from RestService
+    
+    void RestServiceDataDownload (){
+    	
+    	RestTemplate restTemplate = new RestTemplate();
+    	
+    	List<Candidate> listCandidates = Arrays.asList(restTemplate.getForObject(RestServiceAdresses.CANDIDATE_FIND_FOR_ZIPCODE
+    			+ Integer.toString(LoginPane.postalCodeId), Candidate[].class));
+    	
+    	this.listCandidates = listCandidates;
+    }
+    
+    
+    
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // Creating Main Interface
     
@@ -112,7 +134,7 @@ public class CandidateChoicePane extends JPanel {
     	
     	for (Candidate p : listCandidates) {
     		
-    		if (p.getZipCodesId() == LoginPane.postalCodeId){
+    		//if (p.getZipCodesId() == LoginPane.postalCodeId){
     		
         	JRadioButton newJRadioButton = new JRadioButton(" " + p.getSurname() + " " + p.getFirstname());
         	newJRadioButton.setAlignmentX(LEFT_ALIGNMENT);
@@ -121,7 +143,7 @@ public class CandidateChoicePane extends JPanel {
         	Pane.add(newJRadioButton);
 			Pane.add(Box.createVerticalGlue());
 			
-    		}
+    		//}
     	}
     	
     	Pane.add(Box.createVerticalGlue());

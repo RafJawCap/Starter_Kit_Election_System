@@ -25,6 +25,12 @@ public class CandidateController {
         return candidateService.findAll();
     }
 
+    @RequestMapping(value = "/findCorrectCandidate/{a}")
+    @ResponseBody
+    public List<Candidate> findSpecificUser(@PathVariable int a) {
+        return candidateService.findCorrectCandidates(a);
+    }
+    
     @RequestMapping(value = "/throwIllegalArgumentException")
     public void throwIllegalArgumentException() throws Exception {
         throw  new IllegalArgumentException("throwIllegalArgumentException");
