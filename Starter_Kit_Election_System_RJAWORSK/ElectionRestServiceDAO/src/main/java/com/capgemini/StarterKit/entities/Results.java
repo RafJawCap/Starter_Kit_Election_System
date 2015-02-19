@@ -14,29 +14,30 @@ import javax.persistence.Table;
 //import javax.persistence.Table;
 
 @Entity
-@Table(name="candidates")
-public class Candidate {
+@Table(name="results")
+public class Results {
 	
 	@Id
 	@Column(name="id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "candidates_seq_gen")
-	@SequenceGenerator(name = "candidates_seq_gen", sequenceName = "candidates_id_seq", allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "results_seq_gen")
+	@SequenceGenerator(name = "results_seq_gen", sequenceName = "results_id_seq", allocationSize=1)
 	private int id;
 	
-	@Column(name="firstname")
-	private String firstname;
-	
-	@Column(name="surname")
-	private String surname;
+	@ManyToOne
+	@JoinColumn(name="elections_id")
+	private Elections elections;
 	
 	@ManyToOne
-	@JoinColumn(name="zip_codes_id")
-	private ZipCode zip_codes;
+	@JoinColumn(name="voters_id")
+	private Voters voters;
 	
-
+	@ManyToOne
+	@JoinColumn(name="candidates_id")
+	private Candidate candidate;
+	
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
-    public Candidate() { }
+    public Results() { }
 
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
@@ -48,34 +49,34 @@ public class Candidate {
 		this.id = id;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public Elections getElections() {
+		return elections;
 	}
 
-	public void setFirstname(String name) {
-		this.firstname = name;
+	public void setElections(Elections elections) {
+		this.elections = elections;
 	}
 	
-	public String getSurname() {
-		return surname;
+	public Voters getVoters() {
+		return voters;
 	}
 
-	public void setSurname(String name) {
-		this.surname = name;
+	public void setVoters(Voters voters) {
+		this.voters = voters;
 	}
 	
-	public ZipCode getZipCode() {
-		return zip_codes;
+	public Candidate getCandidate() {
+		return candidate;
 	}
 
-	public void setZipCode(ZipCode zipCode) {
-		this.zip_codes = zipCode;
+	public void setCandidate(Candidate candidate) {
+		this.candidate = candidate;
 	}
 
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 	@Override
 	public String toString(){
-		return "id="+id+", surname="+surname+", firstname="+firstname+", zip_codes_id="+zip_codes.getId();
+		return "id="+id+", elections="+elections+", voters="+voters+", candidate="+candidate;
 	}
 }

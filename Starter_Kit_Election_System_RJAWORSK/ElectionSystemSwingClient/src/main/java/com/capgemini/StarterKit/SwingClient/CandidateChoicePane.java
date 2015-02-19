@@ -69,7 +69,7 @@ public class CandidateChoicePane extends JPanel {
     	
     	this.mainFrame = mainFrame;
     	
-    	RestServiceDataDownload();
+    	restServiceCandidatesDownload();
     	
    // 	daoTransfer = new DAOTransfer();
    //	listCandidates = daoTransfer.listCandidate;    	
@@ -83,7 +83,7 @@ public class CandidateChoicePane extends JPanel {
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // Downloading data from RestService
     
-    void RestServiceDataDownload (){
+   public void restServiceCandidatesDownload (){
     	
     	RestTemplate restTemplate = new RestTemplate();
     	
@@ -93,6 +93,32 @@ public class CandidateChoicePane extends JPanel {
     	this.listCandidates = listCandidates;
     }
     
+    
+    public void restServiceResultSave (){
+    	
+    	RestTemplate restTemplate = new RestTemplate();
+    	
+//    	restTemplate.postForLocation(RestServiceAdresses.SAVE_RESULTS_TO_DATABASE + returnPathForSavetoDatabase(), String.class);
+//    	restTemplate.postForLocation(RestServiceAdresses.SAVE_RESULTS_TO_DATABASE, String.class, returnPathForSavetoDatabase());
+
+    	String response = restTemplate.getForObject(RestServiceAdresses.SAVE_RESULTS_TO_DATABASE + returnPathForSavetoDatabase(), String.class);
+
+    	System.out.println(response);
+    }
+    
+    public String returnPathForSavetoDatabase (){
+    	
+     String tempTab[] = selectedCandidate.split(" ",2);
+        
+      String firstName = tempTab[0].trim();
+      String surname = tempTab[1].trim();
+    
+      System.out.println(surname);
+      System.out.println(firstName);
+      
+    	return LoginPane.userPesel + "/" + firstName + "/" + surname + "/1";
+    	
+    }
     
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -136,7 +162,7 @@ public class CandidateChoicePane extends JPanel {
     		
     		//if (p.getZipCodesId() == LoginPane.postalCodeId){
     		
-        	JRadioButton newJRadioButton = new JRadioButton(" " + p.getSurname() + " " + p.getFirstname());
+        	JRadioButton newJRadioButton = new JRadioButton( p.getSurname() + " " + p.getFirstname());
         	newJRadioButton.setAlignmentX(LEFT_ALIGNMENT);
         	newJRadioButton.addActionListener(actionListener);
         	jRadioButtonsGroup.add(newJRadioButton);
@@ -187,6 +213,8 @@ public class CandidateChoicePane extends JPanel {
 					if(selectedCandidate.length() != 0)
 					{
 					
+					restServiceResultSave();	
+						
 					JOptionPane.showMessageDialog(null, "Wybrałeś okręg wyborczy:  " + LoginPane.selectedPostalCode
 													+ "\nWprowadziłeś PESEL:  " + LoginPane.userPesel
 													+ "\n\nWybrałeś kandydata:  " + selectedCandidate + "\n\n",

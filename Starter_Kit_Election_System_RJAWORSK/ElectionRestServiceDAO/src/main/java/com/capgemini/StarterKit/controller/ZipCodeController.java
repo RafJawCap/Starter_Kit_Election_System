@@ -42,20 +42,39 @@ public class ZipCodeController {
 //        return zipCode.toString();
 //    }
 
-    @RequestMapping(value = "/createP", method = RequestMethod.POST)
+//    @RequestMapping(value = "/createP", method = RequestMethod.POST)
+//    @ResponseBody
+//    public String createUser(@RequestBody ZipCode user) {
+//        System.out.println("/create POST");
+//        System.out.println(user);
+//        zipCodeService.create(user);
+//        return user.toString();
+//    }
+    
+    @RequestMapping(value = "/createG/{a}", method = RequestMethod.POST)
     @ResponseBody
-    public String createUser(@RequestBody ZipCode user) {
-        System.out.println("/create POST");
-        System.out.println(user);
-        zipCodeService.create(user);
-        return user.toString();
+    public String createUser(@RequestBody ZipCode zipCode) {
+        System.out.println("/++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++create POST");
+        System.out.println(zipCode);
+        zipCodeService.create(zipCode);
+        return zipCode.toString();
     }
     
-    @RequestMapping(value = "/createG", method = RequestMethod.GET)
-    public void createDummyUser() {
-        System.out.println("/create GET");
-        zipCodeService.create(new ZipCode(10, "12-345"));
+    @RequestMapping(value = "/createG/{a}", method = RequestMethod.GET)
+    public void createDummyUser(@PathVariable String a) {
+        System.out.println("/++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ create GET");
+        ZipCode zipCode = new ZipCode(a);
+        zipCodeService.create(zipCode);
     }
+    
+//    @RequestMapping(value = "/createG/{a}/{b}") //, method = RequestMethod.POST)
+//    public String createZipCode2(@PathVariable("a") String a, @PathVariable("a") int b) {
+//        System.out.println("/++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ create GET");
+//        ZipCode zipCode = new ZipCode(a);
+//        //ZipCode zipCode = new ZipCode(b, a);
+//        zipCodeService.create(zipCode);
+//        return zipCode.toString();
+//    }
     
     @RequestMapping(value = "/throwIllegalArgumentException")
     public void throwIllegalArgumentException() throws Exception {

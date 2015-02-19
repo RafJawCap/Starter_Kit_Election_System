@@ -1,8 +1,10 @@
 package com.capgemini.StarterKit.service;
 
 import com.capgemini.StarterKit.entities.Candidate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.capgemini.StarterKit.repository.CandidateRepo;
 
 import java.util.List;
@@ -20,6 +22,11 @@ public class CandidateService {
     
     public List<Candidate> findCorrectCandidates(int id) {
         return repo.loadCorrectCandidate(id);
+    }
+    
+    public int returnCandidateId (String firstname, String surname){
+    	
+    	return repo.returnVotersId(firstname, surname);
     }
 
     public void create(Candidate candidate) {

@@ -1,8 +1,8 @@
 package com.capgemini.StarterKit.controller;
 
 //import com.capgemini.StarterKit.client.HttpRunner;
-import com.capgemini.StarterKit.entities.Candidate;
-import com.capgemini.StarterKit.service.CandidateService;
+import com.capgemini.StarterKit.entities.Voters;
+import com.capgemini.StarterKit.service.VotersService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,22 +13,33 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping(value = "/candidate")
-public class CandidateController {
+@RequestMapping(value = "/voters")
+public class VotersController {
 
     @Autowired
-    private CandidateService candidateService;
+    private VotersService votersService;
 
     @RequestMapping(value = "/findAll")
     @ResponseBody
-    public List<Candidate> findAllUser() {
-        return candidateService.findAll();
+    public List<Voters> findAllUser() {
+        return votersService.findAll();
     }
+    
 
-    @RequestMapping(value = "/findCorrectCandidate/{id}")
+    @RequestMapping(value = "/create/{pesel}/{zipCode}", method = RequestMethod.POST)
+    public void createNewVoter(@PathVariable("pesel") String pesel, 
+    						   @PathVariable("zipCode") String zipCode) {
+        System.out.println("/create GET");
+        votersService.create(new Voters (pesel, zipCode));
+    }
+    
+    @RequestMapping(value = "/check/{pesel}/{zipCode}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Candidate> findSpecificUser(@PathVariable int id) {
-        return candidateService.findCorrectCandidates(id);
+    public boolean checkIfRecordExists(@PathVariable("pesel") String pesel, 
+    						   		   @PathVariable("zipCode") String zipCode ) {
+    	
+     return votersService.checkIfRecordExists(pesel, zipCode);
+        
     }
     
     @RequestMapping(value = "/throwIllegalArgumentException")

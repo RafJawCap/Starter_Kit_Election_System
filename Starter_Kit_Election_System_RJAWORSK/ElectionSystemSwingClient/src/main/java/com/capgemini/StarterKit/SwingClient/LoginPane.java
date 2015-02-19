@@ -67,6 +67,7 @@ public class LoginPane extends JPanel {
     private PeselValidation peselValidation = new PeselValidation();
 
 	private List<ZipCode> listZipCodes = null;
+
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     
@@ -74,6 +75,7 @@ public class LoginPane extends JPanel {
     public static  String selectedPostalCode = "";
     public static  String userPesel = "";
     public static int postalCodeId;
+    boolean isBoundPeselZipCodeCorrect;
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -83,7 +85,7 @@ public class LoginPane extends JPanel {
 		
 		this.mainFrame = mainFrame;
 		
-		RestServiceDataDownload ();
+		restServiceZipCodeDataDownload ();
 		
 		setCombobox();
 		setTextField();
@@ -96,7 +98,7 @@ public class LoginPane extends JPanel {
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     // Downloading data from RestService
     
-	  void RestServiceDataDownload (){
+	  void restServiceZipCodeDataDownload (){
 		  
 			RestTemplate restTemplate = new RestTemplate();
 			
@@ -106,6 +108,16 @@ public class LoginPane extends JPanel {
 		  
 	  }
 	
+	  boolean restServiceZipCodePeselCorelationTest (){
+		  
+			RestTemplate restTemplate = new RestTemplate();
+			
+			boolean isBoundPeselZipCodeCorrect = restTemplate.getForObject(RestServiceAdresses.CHECK_ZIP_CODE_PESEL_CORELATION + userPesel + "/" + selectedPostalCode,  Boolean.class);
+			
+			return this.isBoundPeselZipCodeCorrect = isBoundPeselZipCodeCorrect;
+		  
+	  }
+	  
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	// Creating Main Interface
 	
@@ -274,7 +286,8 @@ public class LoginPane extends JPanel {
 			
 			peselValidation.setPeselNumber(userPesel);
 			
-			if(selectedPostalCode.length() != 0 && peselValidation.peselCorrectionTest())
+			
+			if(selectedPostalCode.length() != 0 && peselValidation.peselCorrectionTest() && restServiceZipCodePeselCorelationTest ())
 				{
 				
 				JOptionPane.showMessageDialog(null, "Wybrałeś okręg wyborczy: " + selectedPostalCode

@@ -45,7 +45,7 @@ public class TestConfig extends WebMvcConfigurerAdapter {
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/ELECTION_DATABASE");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/ELECTION_DATABASE_TEST");
         dataSource.setUsername("postgresJavaConnection");
         dataSource.setPassword("12rafal90");
         return dataSource;
@@ -74,7 +74,8 @@ public class TestConfig extends WebMvcConfigurerAdapter {
     @Bean
     public Properties hibernateProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+        //properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+        properties.setProperty("hibernate.current_session_context_class", "thread");
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         return properties;

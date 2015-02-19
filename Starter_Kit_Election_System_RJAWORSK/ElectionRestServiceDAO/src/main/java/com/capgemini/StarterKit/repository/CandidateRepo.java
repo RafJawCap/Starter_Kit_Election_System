@@ -12,7 +12,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CandidateRepo extends JpaRepository<Candidate, Long>{
 
-	@Query("SELECT c FROM Candidate c where c.zip_codes.id= :zipCodeID")
+	@Query("SELECT c FROM Candidate c WHERE c.zip_codes.id= :zipCodeID")
 	public List<Candidate> loadCorrectCandidate (@Param("zipCodeID") int zipCodeID);
+	
+	@Query("SELECT c.id FROM Candidate c WHERE c.firstname = :firstnameRq AND c.surname = :surnameRq")
+	public int returnVotersId (@Param("firstnameRq") String firstname, @Param("surnameRq") String surname);
 	
 }

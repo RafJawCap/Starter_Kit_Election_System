@@ -85,6 +85,8 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
     public Properties hibernateProperties() {
         Properties properties = new Properties();
         //properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+        //properties.setProperty("hibernate.query.substitutions", "true 1, false 0");
+        properties.setProperty("hibernate.current_session_context_class", "thread");
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         return properties;

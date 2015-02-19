@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import com.capgemini.StarterKit.*;
+//import com.capgemini.StarterKit.*;
 import com.capgemini.StarterKit.entities.ZipCode;
 import com.capgemini.StarterKit.repository.ZipCodeRepo;
 
