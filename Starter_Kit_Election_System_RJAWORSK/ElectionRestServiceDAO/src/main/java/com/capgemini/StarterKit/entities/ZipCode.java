@@ -66,4 +66,5 @@ public class ZipCode {
 	public String toString(){
 		return "id="+id+", name="+zipCodes;
 	}
+
 }

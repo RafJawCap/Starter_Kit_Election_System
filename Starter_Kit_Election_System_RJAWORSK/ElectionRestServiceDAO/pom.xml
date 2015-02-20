@@ -6,7 +6,7 @@
   <artifactId>ElectionRestServiceDAO</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   
 <!--   <name>ElectionRestServiceDAO Maven Webapp</name> -->
   <name>ElectionRestServiceDAO</name>
@@ -182,7 +182,7 @@
   </dependencies>
   
   <build>
-    <finalName>ElectionRestServiceDAO</finalName>
+<!--     <finalName>ElectionRestServiceDAO</finalName> -->
     
       <plugins>
       <plugin>
