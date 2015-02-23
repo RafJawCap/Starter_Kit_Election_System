@@ -1,4 +1,4 @@
-package com.capgemini.StarterKit.repositories;
+package com.capgemini.StarterKit.TestConfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

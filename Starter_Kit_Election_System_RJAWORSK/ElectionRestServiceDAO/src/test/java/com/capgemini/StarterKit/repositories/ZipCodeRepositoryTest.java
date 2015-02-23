@@ -1,7 +1,9 @@
 package com.capgemini.StarterKit.repositories;
 
 //import com.capgemini.StarterKit.configuration.AppConfiguration;
+import com.capgemini.StarterKit.TestConfig.TestConfig;
 import com.capgemini.StarterKit.entities.ZipCode;
+
 
 //import org.hamcrest.Matchers;
 //import org.junit.Assert;
@@ -15,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 //import org.springframework.transaction.annotation.Transactional;
+
 
 import com.capgemini.StarterKit.repository.ZipCodeRepo;
 

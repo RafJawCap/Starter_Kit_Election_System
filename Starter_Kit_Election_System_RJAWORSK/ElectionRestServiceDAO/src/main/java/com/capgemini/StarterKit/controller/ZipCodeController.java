@@ -51,20 +51,21 @@ public class ZipCodeController {
 //        return user.toString();
 //    }
     
-    @RequestMapping(value = "/createG/{a}", method = RequestMethod.POST)
+    @RequestMapping(value = "/createP", method = RequestMethod.POST)
     @ResponseBody
-    public String createUser(@RequestBody ZipCode zipCode) {
-        System.out.println("/++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++create POST");
+    public ZipCode createZipCodePOST (@RequestBody ZipCode zipCode) {
+        System.out.println("/+++++++create POST");
         System.out.println(zipCode);
-        zipCodeService.create(zipCode);
-        return zipCode.toString();
+        return zipCodeService.create(zipCode);
     }
     
-    @RequestMapping(value = "/createG/{a}", method = RequestMethod.GET)
-    public void createDummyUser(@PathVariable String a) {
-        System.out.println("/++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ create GET");
-        ZipCode zipCode = new ZipCode(a);
+    @RequestMapping(value = "/createG/{zipCodeS}", method = RequestMethod.GET)
+    @ResponseBody
+    public String createZipCodeGET (@PathVariable String zipCodeS) {
+        System.out.println("/++++++++ create GET");
+        ZipCode zipCode = new ZipCode(zipCodeS);
         zipCodeService.create(zipCode);
+        return zipCode.toString();
     }
     
 //    @RequestMapping(value = "/createG/{a}/{b}") //, method = RequestMethod.POST)

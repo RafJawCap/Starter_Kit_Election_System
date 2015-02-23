@@ -31,6 +31,12 @@ public class ZipCode {
 		this.zipCodes = zipcode;
 	}
 	
+	public ZipCode(int id, String zipcode){
+		
+		this.id = id;
+		this.zipCodes = zipcode;
+	}
+	
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 	public int getId() {

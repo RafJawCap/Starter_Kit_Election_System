@@ -18,7 +18,7 @@ public class ZipCodeService {
         return repo.findAll();
     }
 
-    public void create(ZipCode zipCode) {
-        repo.saveAndFlush(zipCode);
+    public ZipCode create(ZipCode zipCode) {
+        return repo.saveAndFlush(zipCode);
     }
 }
