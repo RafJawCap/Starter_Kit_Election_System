@@ -36,11 +36,19 @@ public class ResultsController {
         return resultService.findAll();
     }
     
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @ResponseBody
+    public String createResultPOST (@RequestBody Results result) {
+        System.out.println("/create POST");
+        System.out.println(result);
+        resultService.create(result);
+        return result.toString();
+    }
 
     @RequestMapping(value = "/createId/{voters}/{candidate}/{election}", method = RequestMethod.GET)
-    public void createNewVoter(@PathVariable("voters") int voters, 
-    						   @PathVariable("candidate") int candidate,
-    						   @PathVariable("election") int election) {
+    public void createNewResult (@PathVariable("voters") int voters, 
+    						   	 @PathVariable("candidate") int candidate,
+    						   	 @PathVariable("election") int election) {
         System.out.println("/create GET");
         	Results results = new Results();
         	
@@ -60,10 +68,10 @@ public class ResultsController {
     
     @RequestMapping(value = "/createStr/{pesel}/{candidateSurname}/{candidateFirstname}/{election}", method = RequestMethod.GET)
     @ResponseBody
-    public String createNewVoter(@PathVariable("pesel") String pesel, 
-			   				   @PathVariable("candidateSurname") String surname,
-    						   @PathVariable("candidateFirstname") String firstname,
-    						   @PathVariable("election") int election) {
+    public String createNewResult (@PathVariable("pesel") String pesel, 
+			   				   	   @PathVariable("candidateSurname") String surname,
+			   				   	   @PathVariable("candidateFirstname") String firstname,
+			   				   	   @PathVariable("election") int election) {
         System.out.println("/create GET");
         	Results results = new Results();
         	

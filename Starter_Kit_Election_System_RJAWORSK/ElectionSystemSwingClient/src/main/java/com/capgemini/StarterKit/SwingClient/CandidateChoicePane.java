@@ -15,11 +15,14 @@ import javax.swing.JRadioButton;
 
 
 
+
 import org.springframework.web.client.RestTemplate;
+
 
 //import com.capgemini.StarterKit.main.DAOTransfer;
 //import com.capgemini.StarterKit.model.Candidate;
 import com.capgemini.StarterKit.entities.Candidate;
+import com.capgemini.StarterKit.entities.Results;
 //import com.capgemini.StarterKit.entities.ZipCode;
 
 public class CandidateChoicePane extends JPanel {
@@ -94,16 +97,26 @@ public class CandidateChoicePane extends JPanel {
     }
     
     
-    public void restServiceResultSave (){
+    public void restServiceResultSaveGET (){
+    	
+    	RestTemplate restTemplate = new RestTemplate();
+
+    	String response = restTemplate.getForObject(RestServiceAdresses.SAVE_RESULTS_TO_DATABASE_GET + returnPathForSavetoDatabase(), String.class);
+
+    	System.out.println(response);
+    }
+    
+    public void restServiceResultSavePOST (){
     	
     	RestTemplate restTemplate = new RestTemplate();
     	
-//    	restTemplate.postForLocation(RestServiceAdresses.SAVE_RESULTS_TO_DATABASE + returnPathForSavetoDatabase(), String.class);
-//    	restTemplate.postForLocation(RestServiceAdresses.SAVE_RESULTS_TO_DATABASE, String.class, returnPathForSavetoDatabase());
+        String tempTab[] = selectedCandidate.split(" ",2);
+        
+        String firstName = tempTab[0].trim();
+        String surname = tempTab[1].trim();
+    	
+    	restTemplate.postForLocation(RestServiceAdresses.SAVE_RESULTS_TO_DATABASE_POST, new Results(LoginPane.userPesel, surname, firstName, 1));
 
-    	String response = restTemplate.getForObject(RestServiceAdresses.SAVE_RESULTS_TO_DATABASE + returnPathForSavetoDatabase(), String.class);
-
-    	System.out.println(response);
     }
     
     public String returnPathForSavetoDatabase (){
@@ -213,7 +226,8 @@ public class CandidateChoicePane extends JPanel {
 					if(selectedCandidate.length() != 0)
 					{
 					
-					restServiceResultSave();	
+					restServiceResultSaveGET();	
+					//restServiceResultSavePOST();	
 						
 					JOptionPane.showMessageDialog(null, "Wybrałeś okręg wyborczy:  " + LoginPane.selectedPostalCode
 													+ "\nWprowadziłeś PESEL:  " + LoginPane.userPesel
